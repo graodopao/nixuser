@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, law, ... }:
 {
 	username = "trigo";
 	name = "Grão";
@@ -6,6 +6,7 @@
 
 	lawModules = [
 		/network/nordvpn
+		/network/zerotier
 	
 		/core/fonts
 		/core/gnupg
@@ -13,7 +14,7 @@
 		/programming/godot
 		/programming/basic
 
-		/games/steam
+		(law.overrideModule /games/steam { sandbox.disable = true; })
 		/games/atlauncher
 	];
 
@@ -21,7 +22,8 @@
 
 	packages = with pkgs; [
 		bottles
-	
+
+		obs-studio
 		jetbrains-toolbox
  		flameshot
 		brave
@@ -34,7 +36,6 @@
 		discord
 		yakuake
 
-
 		mpv
 		
 		kitty
@@ -44,7 +45,7 @@
 	programs.vscode.enable = true;
 
 	system.imports	= [ ./config/desktop/plasma/system.nix ];
-	
+
 	home = { config, ... }: {
 		imports = [ ./config/desktop/plasma/home.nix ];
 
